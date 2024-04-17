@@ -12,17 +12,24 @@ app = Flask("Sentiment Analyzer")
 
 @app.route("/sentimentAnalyzer")
 def sent_analyzer():
+    '''
+    sent analyzer
+    '''
     text_to_analyze = request.args.get('textToAnalyze')
     response = sentiment_analyzer(text_to_analyze)
     label = response['label']
     score = response['score']
     if label is None:
         return "Invalid input ! Try again."
-    else:
-        return "The given text has been identified as {} with a score of {}.".format(label.split('_')[1], score)
+
+    content = "The given text has been identified as {} with a score of {}."
+    return content.format(label.split('_')[1], score)
 
 @app.route("/")
 def render_index_page():
+    '''
+    render index page
+    '''
     return render_template('index.html')
 
 if __name__ == "__main__":
